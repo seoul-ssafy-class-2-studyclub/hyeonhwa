@@ -1,6 +1,6 @@
-for t in range(1):
+for t in range(10):
     test = int(input())
-    n = 5
+    n = 100
     l, l2 = [], []
     for i in range(n):
         l1 = list(map(int, input().split()))
