@@ -30,5 +30,9 @@ while n > 0:
         ls[ind(ls, a)] = 26
     n -= 2
     basic += 1
-print(result)
+# print(result)
     
+# delta_x = [0, 1, 0, -1]
+# delta_y = [1, 0, -1, 0] # 오른쪽, 아래, 왼쪽, 위 의미
+# delta의 인덱스가 벗어나는 순간 0으로 다시 돌아가게 함(4가 되는 순간 4%4 를 통해서!)
+# dir_state를 4로 모듈화
