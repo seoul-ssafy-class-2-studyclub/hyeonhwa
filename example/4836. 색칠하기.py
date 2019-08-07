@@ -7,11 +7,13 @@ for t in range(T):
         if term[-1] == 1:
             for i in range(term[0], term[2]+1):
                 for j in range(term[1],term[3]+1):
-                    arr[i][j] += 1
+                    if arr[i][j] == 0 or arr[i][j] == 2:
+                        arr[i][j] += 1
         if term[-1] == 2:
             for i in range(term[0], term[2]+1):
                 for j in range(term[1],term[3]+1):
-                    arr[i][j] += 2
+                    if arr[i][j] == 0 or arr[i][j] == 1:
+                        arr[i][j] += 2
     cnt = 0
     for i in arr:
         cnt += i.count(3)
