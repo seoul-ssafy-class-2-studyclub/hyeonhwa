@@ -1,8 +1,12 @@
 def pal(a):
-    if a == a[::-1]:
+    if len(a) == 0 or len(a) == 1:
         return True
-    else:
+    if a[0] != a[-1]:
         return False
+    else:
+        a.pop(0)
+        a.pop(-1)
+        return pal(a)
 
 for t in range(10):
     n = int(input())
