@@ -34,6 +34,6 @@ for i in nums:
                 if c2 == -5:
                     cnt += 1
             break
-    if cnt == 3:
+    if cnt >= 3:
         print(nums.index(i)+1)
         break
