@@ -1,4 +1,5 @@
 for t in range(10):
+    N = int(input())
     n = 100
     rows = [[i for i in input().split()] for j in range(n)]
     rows = list(map(list,zip(*rows)))
@@ -8,11 +9,6 @@ for t in range(10):
             rows.remove(row)
         for i in range(row.count('0')):
             row.remove('0')
-    # for row in rows[:]:
-    #     if row[-1] == '1':
-    #         del row[-1]
-    #     if row[0] == '2':
-    #         del row[0]
     cnt = 0
     for row in rows:
         for i in range(len(row)-1):
