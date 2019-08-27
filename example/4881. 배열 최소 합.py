@@ -1,22 +1,28 @@
-def permutation(arr):
-    if len(arr) == 1:
-        return arr[0]
-    res = []
-    for i in range(len(arr)):
-        for j in range(N):
-            remaining = [x for x in arr if x != arr[i]]
-            new = permutation(remaining)
+def change(arr, k=0, r_sum=0, rs=[]):
+    global m_sum
+    if len(rs) == N:
+        if m_sum > r_sum:
+            m_sum = r_sum
+        return 0
+    for i in range(N):
+        if i not in rs:
+            rs.append(i)
+            r_sum += arr[k][i]
+            if r_sum > m_sum:
+                rs.pop()
+                r_sum -= arr[k][i]
+                continue
+            change(arr, k+1, r_sum, rs)
+            rs.pop()
+            r_sum -= arr[k][i]
+        
 
-            for y in new:
-                if new.index(y) != j:
-                    res.append([arr[i][j], y])
-
-    return res
-
-T = int(input())
-for t in range(T):
+for T in range(int(input())):
     N = int(input())
     n = []
-    for _ in range(N):
-        n += [list(map(int, input().split()))]
-    res = permutation(n)
+    rs = []
+    m_sum = 10000000
+    for i in range(N):
+        n.append(list(map(int, input().split())))
+    change(n)
+    print('#{} {}'.format(T+1, m_sum))
