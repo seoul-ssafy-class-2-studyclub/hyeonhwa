@@ -2,6 +2,7 @@ T = int(input())
 for t in range(T):
     S = input()
     n = []
+    result = ''
     cards = {'S': [], 'D': [], 'H': [], 'C': []}
     for i in range(0,len(S),3):
         n.append(S[i:i+3])
