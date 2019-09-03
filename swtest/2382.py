@@ -1,20 +1,6 @@
 from pprint import pprint
-# import sys
-# sys.stdin = open('input1.txt', 'r')
-
-'''
-1
-7 2 9
-1 1 7 1
-2 1 7 1
-5 1 5 4
-3 2 8 4
-4 3 14 1
-3 4 3 3
-1 5 8 2
-3 5 100 1
-5 5 1 1
-'''
+import sys
+sys.stdin = open('input1.txt', 'r')
 
 def move(x, y):
     global newk
@@ -41,17 +27,7 @@ def move(x, y):
                 newk += [[x+dx, y+dy, newboard[x+dx][y+dy][-1], 3]]
         board[x][y] = []
     elif 0 < x+dx < N-1 and 0 < y+dy < N-1 and newboard[x+dx][y+dy] != []:
-        crush += [board[x][y]]
-        k = board[x][y][-1] + newboard[x+dx][y+dy][-1]
-        if newboard[x+dx][y+dy][-1] < board[x][y][-1]:
-            newboard[x+dx][y+dy] = [m, k]
-        else:
-            newboard[x+dx][y+dy] = [newboard[x+dx][y+dy][0], k]
-        board[x][y] = []
-        newk += [[x+dx, y+dy, newboard[x+dx][y+dy][-1], newboard[x+dx][y+dy][0]]]
-    print(crush)
-    # pprint(newboard)
-    # print(newk)
+        crush += [[newboard[x+dx][y+dy], board[x][y], [x+dx, y+dy]]]
 
 T = int(input())
 for t in range(T):
@@ -73,10 +49,48 @@ for t in range(T):
             y = i[1]
             if board[x][y] != []:
                 move(x, y)
+        crush.sort(key=lambda x:x[0])
+        crushes = []
+        for i in range(len(crush)-1):
+            if crush[i+1][0] == crush[i][0]:
+                if crushes and crushes[-1][0] == crush[i+1][0]:
+                    crushes[-1].insert(-2, crush[i+1][1])
+                else:
+                    crushes += [[crush[i][0], crush[i][1], crush[i+1][1], crush[i][-1]]]
+        if crushes:
+            for i in crush[:]:
+                for j in range(len(crushes)):
+                    if crushes[j][0] in i:
+                        crush.remove(i)
+        for i in range(len(crushes)):
+            z, a = 0, []
+            for j in range(len(crushes[i])-1):
+                z += crushes[i][j][1]
+                a += [crushes[i][j]]
+            a.sort(key=lambda x:x[1])
+            m = a[-1][0]
+            newboard[crushes[i][-1][0]][crushes[i][-1][1]] = [m, z]
+            for j in newk:
+                if j[0] == crushes[i][-1][0] and crushes[i][-1][1] == j[1]:
+                    j[2] = z
+                    j[3] = m
+                    break
+        for i in range(len(crush)):
+            z, a = 0, []
+            for j in range(len(crush[i])-1):
+                z += crush[i][j][1]
+                a += [crush[i][j]]
+            a.sort(key=lambda x:x[1])
+            m = a[-1][0]
+            newboard[crush[i][-1][0]][crush[i][-1][1]] = [m, z]
+            for j in newk:
+                if j[0] == crush[i][-1][0] and crush[i][-1][1] == j[1]:
+                    j[2] = z
+                    j[3] = m
+                    break
         year += 1
         board = newboard
         k = newk
-        # pprint(newboard)
     res = 0
     for x in k:
         res += x[2]
