@@ -1,5 +1,3 @@
-from pprint import pprint
-
 def findvirus(arr):
     virus = []
     for i in range(N):
@@ -22,9 +20,29 @@ def diffusion(arr):
     global cnt
     queue = arr
     while queue:
-        for dx, dy in idx:
-            if 0 <= x+dx < N and 0 <= y+dy < N and newboard[x+dx][y+dy] == 0:
-               newboard[x+dx][y+dy] = -cnt
+        nxt = []
+        flag = 0
+        for x, y in queue:
+            for dx, dy in idx:
+                if 0 <= x+dx < N and 0 <= y+dy < N and newboard[x+dx][y+dy] == 0:
+                    newboard[x+dx][y+dy] = -cnt
+                    nxt.append((x+dx, y+dy))
+                elif 0 <= x+dx < N and 0 <= y+dy < N and newboard[x+dx][y+dy] == 2:
+                    for i in newboard:
+                        if 0 in i:
+                            flag = 1
+                    if flag == 1:
+                        newboard[x+dx][y+dy] = -cnt
+                        nxt.append((x+dx, y+dy))
+                    else:
+                        break
+        queue = nxt
+        if nxt:
+            cnt += 1
+    for i in newboard:
+        if 0 in i:
+            return -1
+    return cnt-1
     
 
 N, M = map(int, input().split())
@@ -33,11 +51,13 @@ idx = [[-1, 0], [1, 0], [0, -1], [0, 1]]
 virus = findvirus(board)
 res = []
 combination()
-result = 100000000000000000000
+result = 1000000
 for i in res:
     newboard = [i[:] for i in board]
-    print(res)
     cnt = 1        
-    if result > cnt-1:
-        result = cnt-1
+    x = diffusion(i)
+    if x != -1 and result > x:
+        result = x
+if result == 1000000:
+    result = -1
 print(result)
