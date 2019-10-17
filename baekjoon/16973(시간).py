@@ -1,3 +1,5 @@
+from collections import deque
+
 def checkwall(x, y):
     for i in range(x, x+h):
         for j in range(y, y+w):
@@ -7,7 +9,8 @@ def checkwall(x, y):
 
 def move(i, j, k=0):
     res = 0
-    queue = [(i, j)]
+    queue = deque()
+    queue.append((i, j))
     while queue:
         nxt = []
         for x, y in queue:
