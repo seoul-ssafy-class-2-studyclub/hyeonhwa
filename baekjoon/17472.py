@@ -1,4 +1,5 @@
 import collections
+import heapq    
 from pprint import pprint
 
 def island(x, y):
@@ -53,4 +54,26 @@ for x in range(N):
     for y in range(M):
         if board[x][y] != 0:
             findnear(x, y, board[x][y])
-
+# print(near)
+INF = float('inf')
+cost = [INF]*cnt
+cost[2] = 0
+visit = [False]*cnt
+queue = []
+heapq.heappush(queue, (0, 2))
+while queue:
+    value, node = heapq.heappop(queue)
+    visit[node] = True
+    for n, v in near[node]:
+        if visit[n]:
+            continue
+        if v < 2:
+            continue
+        if cost[n] > v:
+            cost[n] = v
+            heapq.heappush(queue, (v, n))
+if INF in cost[2:]:
+    print(-1)
+else:
+    print(sum(cost[2:]))
+# print(visit)
