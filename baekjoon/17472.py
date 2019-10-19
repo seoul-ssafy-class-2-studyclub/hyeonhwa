@@ -25,17 +25,19 @@ def findnear(x, y, value):
                 queue.append((i+dx, j+dy))
                 l += 1
             if 0 <= i+dx < N and 0 <= j+dy < M and board[i+dx][j+dy] != 0 and board[i+dx][j+dy] != value:
-                if not near:
-                    near[value] += [[board[i+dx][j+dy], l]]
-                if near:
-                    flag = 0
-                    for k in near:
-                        if board[i+dx][j+dy] in k:
-                            flag = 1
-                            if k[1] > l:
-                                k[1] = l
-                    if flag == 0:
+                if l >= 2:
+                    if not near[value]:
                         near[value] += [[board[i+dx][j+dy], l]]
+                    else:
+                        flag = 0
+                        for k in near[value]:
+                            if board[i+dx][j+dy] is k[0]:
+                                flag = 1
+                                if k[1] > l:
+                                    k[1] = l
+                        if flag == 0:
+                            near[value] += [[board[i+dx][j+dy], l]]
+                queue = collections.deque()
                 break
 
 
@@ -67,8 +69,6 @@ while queue:
     for n, v in near[node]:
         if visit[n]:
             continue
-        if v < 2:
-            continue
         if cost[n] > v:
             cost[n] = v
             heapq.heappush(queue, (v, n))
@@ -76,4 +76,3 @@ if INF in cost[2:]:
     print(-1)
 else:
     print(sum(cost[2:]))
-# print(visit)

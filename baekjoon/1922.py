@@ -24,3 +24,31 @@ while queue:
             heapq.heappush(queue, (v, n))
 # print(cost)
 print(sum(cost[1:]))
+
+# parent = [i for i in range(N+1)]
+# rank = [0]*(N+1)
+
+# def find(v):
+#     if parent[v] != v:
+#         parent[v] = find(parent[v])
+#     return parent[v]
+
+# def union(v, u):
+#     root1 = find(v)
+#     root2 = find(u)
+#     if root1 != root2:
+#         if rank[root1] > rank[root2]:
+#             parent[root2] = root1
+#         else:
+#             parent[root1] = root2
+#             if rank[root1] == rank[root2]:
+#                 rank[root2] += 1
+
+
+# def kruskal():
+#     mst = 0
+#     for v, u, c in nodes:
+#         if find(v) != find(u):
+#             union(v, u)
+#             mst += c
+#     return mst
