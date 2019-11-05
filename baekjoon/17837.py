@@ -5,7 +5,7 @@ def move():
         if 0 <= x+dx < N and 0 <= y+dy < N and board[x][y] == 0:
             for n, m, red in chesses:
                 if x+dx+1 == n and y+dy+1 == m:
-
+ 
 
 N, K = map(int, input().split())
 board = [list(map(int, input().split())) for _ in range(N)]
