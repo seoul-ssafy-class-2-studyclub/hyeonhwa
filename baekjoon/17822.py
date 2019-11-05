@@ -30,15 +30,6 @@ def rmsame(x, y):
                 if circles[x][y] == circles[x+dx][j+dy] and (x+dx, j+dy) not in l:
                     queue.append((x+dx, j+dy))
                     l.append((x+dx, j+dy))
-            # i, j = x, y
-            # if 0 <= x+dx < N and -1 <= y+dy <= M:
-            #     if y+dy == -1:
-            #         y = M
-            #     elif y+dy == M:
-            #         y = -1
-            #     if circles[i][j] == circles[x+dx][y+dy] and (x+dx, y+dy) not in l:
-            #         queue.append((x+dx, y+dy))
-            #         l.append((x+dx, y+dy))
     if len(l) >= 2:
         flag = 1
         for i, j in l:
