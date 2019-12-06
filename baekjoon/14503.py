@@ -20,6 +20,7 @@ def search(x, y, d, board):
 N, M = map(int, input().split())
 r, c, d = map(int, input().split())
 board = [list(map(int, input().split())) for _ in range(N)]
+# for i in range(1, 5): (d-i)%4
 idx = [[(0, -1), (1, 0), (0, 1), (-1, 0)], [(-1, 0), (0, -1), (1, 0), (0, 1)], [(0, 1), (-1, 0), (0, -1), (1, 0)], [(1, 0), (0, 1), (-1, 0), (0, -1)]]
 directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 cnt = 0
