@@ -15,4 +15,5 @@ def solution(arrangement):
                 s.pop()
     return answer
 
-print(solution('()(((()())(())()))(())'))
+x = input()
+print(solution(x))
