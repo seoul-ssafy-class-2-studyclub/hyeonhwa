@@ -304,6 +304,8 @@ for t in range(int(input())):
 
 ### 하드코딩 -> index 주의
 
+### O or X : 이진 사용
+
 
 
 ### 메모이제이션
