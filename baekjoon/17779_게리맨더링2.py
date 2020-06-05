@@ -1,6 +1,5 @@
 def divide(n, m):
     center = (n+y, m+i)
-    vote = [[0]*N for _ in range(N)]
     k = 0
     arr = [(n+y, m+i)]
     nums = [0, 0, 0, 0, 0]
@@ -62,9 +61,6 @@ res = 987654321
 for x in range(N-1, 2, -1):
     for y in range(1, N-x):
         for i in range(1, N-x):
-            pos = [0]*x
-            for j in range(x):
-                pos[j] = city[j+y][i:i+x]
             for l in range(1, x-1):
                 nums = divide(0, l)
                 res = min(res, (max(nums)-min(nums)))
