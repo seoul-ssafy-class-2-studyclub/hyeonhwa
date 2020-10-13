@@ -29,6 +29,7 @@ def right(t, i, j):
                 right_board[x][y] = 1
                 if t == 2:
                     right_board[x][y-1] = 1
+    check(x, 1)
 
 
 def down(t, i, j):
@@ -58,6 +59,7 @@ def down(t, i, j):
                 down_board[x][y] = 1
                 if t == 3:
                     down_board[x-1][y] = 1
+    check(y, 0)
 
 
 def check(x, chk):
@@ -78,6 +80,13 @@ def check(x, chk):
             down_board[x][i] = 0
         res += 1
         return True
+
+
+def move(x, chk):
+    if chk: # right
+        return
+    else: # down
+        return
 
 
 right_board = [[0]*6 for _ in range(4)]
