@@ -29,7 +29,12 @@ def right(t, i, j):
                 right_board[x][y] = 1
                 if t == 2:
                     right_board[x][y-1] = 1
-    check(x, 1)
+    flag1 = check(y-1, 1)
+    if flag1:
+        move(y-1, 1)
+    flag2 = check(y, 1)
+    if flag2:
+        move(y, 1)
 
 
 def down(t, i, j):
@@ -59,7 +64,12 @@ def down(t, i, j):
                 down_board[x][y] = 1
                 if t == 3:
                     down_board[x-1][y] = 1
-    check(y, 0)
+    flag1 = check(x-1, 0)
+    if flag1:
+        move(x-1, 0)
+    flag2 = check(x, 0)
+    if flag2:
+        move(x, 0)
 
 
 def check(x, chk):
@@ -83,9 +93,32 @@ def check(x, chk):
 
 
 def move(x, chk):
+    queue = collections.deque()
     if chk: # right
+        for i in range(4):
+            if right_board[i][x]:
+                queue.append((i, x))
+                right_board[i][x] = 0
+        while queue:
+            a, b = queue.popleft()
+            if 0 <= b+1 < 6:
+                if right_board[a][b+1]:
+                    right_board[a][b] = 1
+                    break
+                else:
+                    queue.append((a, b+1))
         return
     else: # down
+        for i in range(4):
+            if down_board[x][i]:
+                queue.append((x, i))
+        while queue:
+            a, b = queue.popleft()
+            if 0 <= a+1 < 6:
+                if down_board[a+1][b]:
+                    down_board[a][b] = 1
+                else:
+                    queue.append((a+1, b))
         return
 
 
