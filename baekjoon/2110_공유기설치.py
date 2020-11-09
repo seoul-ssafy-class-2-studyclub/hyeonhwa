@@ -4,7 +4,7 @@ house.sort()
 s = house[1]-house[0]
 e = house[-1]-house[0]
 res = 0
-while s < e:
+while s <= e:
     mid = (s+e)//2
     x = house[0]
     cnt = 1
@@ -16,5 +16,5 @@ while s < e:
         s = mid+1
         res = mid
     else:
-        e = mid
+        e = mid-1
 print(res)
