@@ -4,6 +4,7 @@ class Node:
         self.l = l
         self.r = r
 
+# 전위순회 root -> left -> right
 def preorder(node):
     pre.append(node.item)
     if node.l != '.':
@@ -11,7 +12,7 @@ def preorder(node):
     if node.r != '.':
         preorder(tree[node.r])
 
-
+# 중위순회 left -> root -> right
 def inorder(node):
     if node.l != '.':
         inorder(tree[node.l])
@@ -19,6 +20,7 @@ def inorder(node):
     if node.r != '.':
         inorder(tree[node.r])
 
+# 후위순회 left -> right -> root
 def postorder(node):
     if node.l != '.':
         postorder(tree[node.l])
