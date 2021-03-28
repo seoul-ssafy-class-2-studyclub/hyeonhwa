@@ -23,21 +23,6 @@ def solve(s1, s2, x):
 
 n = int(input())
 board = [[i for i in input()] for _ in range(n)]
-r1, r2 = 0, 0
-for i in range(n):
-    if board[i].count('1') == n:
-        r1 += 1
-    elif board[i].count('0') == n:
-        r2 += 1
-if r1 == n:
-    print('1')
-elif r2 == n:
-    print('0')
-else:
-    res = '('
-    solve(0, 0, n//2)
-    solve(0, n//2, n//2)
-    solve(n//2, 0, n//2)
-    solve(n//2, n//2, n//2)
-    res += ')'
-    print(res)
+res = ''
+solve(0, 0, n)
+print(res)
