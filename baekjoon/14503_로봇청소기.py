@@ -1,7 +1,10 @@
 def search(x, y, d, board):
+    res = 0
     while True:
         i, j = x, y
-        board[x][y] = -1
+        if board[x][y] != -1:
+            board[x][y] = -1
+            res += 1
         for dx, dy in idx[d]:
             if 0 <= x+dx < N and 0 <= y+dy < N and board[x+dx][y+dy] == 0:
                 x += dx
@@ -15,6 +18,7 @@ def search(x, y, d, board):
                 y -= dy
             elif 0 <= x-dx < N and 0 <= y-dy < M and board[x-dx][y-dy] == 1:
                 break
+    return res
 
 
 N, M = map(int, input().split())
@@ -23,11 +27,4 @@ board = [list(map(int, input().split())) for _ in range(N)]
 # for i in range(1, 5): (d-i)%4
 idx = [[(0, -1), (1, 0), (0, 1), (-1, 0)], [(-1, 0), (0, -1), (1, 0), (0, 1)], [(0, 1), (-1, 0), (0, -1), (1, 0)], [(1, 0), (0, 1), (-1, 0), (0, -1)]]
 directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
-cnt = 0
-flag = 0
-search(r, c, d, board)
-for x in range(N):
-    for y in range(M):
-        if board[x][y] == -1:
-            cnt += 1
-print(cnt)
+print(search(r, c, d, board))
