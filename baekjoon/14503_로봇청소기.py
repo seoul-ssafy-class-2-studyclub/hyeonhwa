@@ -1,30 +1,44 @@
-def search(x, y, d, board):
-    res = 0
+from pprint import pprint
+
+def sol(x, y, d, visit, board):
+    flag = 0
     while True:
-        i, j = x, y
-        if board[x][y] != -1:
-            board[x][y] = -1
-            res += 1
-        for dx, dy in idx[d]:
-            if 0 <= x+dx < N and 0 <= y+dy < N and board[x+dx][y+dy] == 0:
-                x += dx
-                y += dy
-                d = directions.index((dx, dy))
-                break
-        if x == i and y == j:
-            dx, dy = directions[d]
-            if 0 <= x-dx < N and 0 <= y-dy < M and board[x-dx][y-dy] == -1:
+        visit[x][y] = 1
+        # pprint(visit)
+        if flag == 4:
+            dx, dy = idx[d]
+            if 0 <= x-dx < n and 0 <= y-dy < m and not board[x-dx][y-dy]:
                 x -= dx
                 y -= dy
-            elif 0 <= x-dx < N and 0 <= y-dy < M and board[x-dx][y-dy] == 1:
+                flag = 0
+                continue
+            else:
                 break
-    return res
+        k = d-1
+        if k < 0:
+            k = 3
+        dx, dy = idx[k]
+        if 0 <= x+dx < n and 0 <= y+dy < m and not visit[x+dx][y+dy] and not board[x+dx][y+dy]:
+            x += dx
+            y += dy
+            d -= 1
+            if d < 0:
+                d = 3
+            flag = 0
+        elif (0 <= x+dx < n and 0 <= y+dy < m and visit[x+dx][y+dy] and not board[x+dx][y+dy]) or (x+dx < 0 or x+dx >= n or y+dy < 0 or y+dy >= m) or (0 <= x+dx < n and 0 <= y+dy < m and board[x+dx][y+dy]):
+            flag += 1
+            d -= 1
+            if d < 0:
+                d = 3
 
 
-N, M = map(int, input().split())
+n, m = map(int, input().split())
 r, c, d = map(int, input().split())
-board = [list(map(int, input().split())) for _ in range(N)]
-# for i in range(1, 5): (d-i)%4
-idx = [[(0, -1), (1, 0), (0, 1), (-1, 0)], [(-1, 0), (0, -1), (1, 0), (0, 1)], [(0, 1), (-1, 0), (0, -1), (1, 0)], [(1, 0), (0, 1), (-1, 0), (0, -1)]]
-directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
-print(search(r, c, d, board))
+board = [list(map(int, input().split())) for _ in range(n)]
+idx = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+visit = [[0]*m for _ in range(n)]
+sol(r, c, d, visit, board)
+res = 0
+for i in range(n):
+    res += visit[i].count(1)
+print(res)
