@@ -1,49 +1,47 @@
+def can(x, y):
+    if 0 <= x < n and 0 <= y < m:
+        return True
+    return False
+
+
+def sol(i, j, ii, jj):
+    queue = [(i, j, ii, jj, 0)]
+    visit[i][j][ii][jj] = 1
+    while queue:
+        x1, y1, x2, y2, t = queue.pop(0)
+        if t >= 10:
+            return -1
+        for dx, dy in idx:
+            newx1, newy1, newx2, newy2 = x1, y1, x2, y2
+            if can(x1+dx, y1+dy) and can(x2+dx, y2+dy):
+                if board[x1+dx][y1+dy] != '#':
+                    newx1 += dx
+                    newy1 += dy
+                if board[x2+dx][y2+dy] != '#':
+                    newx2 += dx
+                    newy2 += dy
+                if not visit[newx1][newy1][newx2][newy2]:
+                    queue.append((newx1, newy1, newx2, newy2, t+1))
+                    visit[newx1][newy1][newx2][newy2] = 1
+            elif (can(x1+dx, y1+dy) and not can(x2+dx, y2+dy)) or (not can(x1+dx, y1+dy) and can(x2+dx, y2+dy)):
+                return t+1
+    return -1
+
+
 n, m = map(int, input().split())
 board = [[i for i in input()] for _ in range(n)]
 idx = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-coin = [[0, 0]]
-for i in range(n):
-    for j in range(m):
-        if board[i][j] == 'o':
-            if coin[0][0]:
-                coin[0][1] = (i, j, 0)
-                break
+i, j, ii, jj = -1, -1, -1, -1
+for x in range(n):
+    for y in range(m):
+        if board[x][y] == 'o':
+            if i == -1:
+                i, j = x, y
             else:
-                coin[0][0] = (i, j, 0)
-    if coin[0][1]:
-        break
-res = -1
-if coin[0][1]:
-    for c1, c2 in coin:
-        x1, y1, t1 = c1
-        x2, y2, t2 = c2
-        flag = 0
-        if t1 > 10 or t2 > 10:
-            break
-        for dx, dy in idx:
-            new_coin = [0, 0]
-            if 0 <= x1+dx < n and 0 <= y1+dy < m:
-                if board[x1+dx][y1+dy] != '#':
-                    new_coin[0] = (x1+dx, y1+dy, t1+1)
-                elif board[x1+dx][y1+dy] == '#':
-                    new_coin[0] = (x1, y1, t1+1)
-            if 0 <= x2+dx < n and 0 <= y2+dy < m:
-                if board[x2+dx][y2+dy] != '#':
-                    new_coin[1] = (x2+dx, y2+dy, t2+1)
-                elif board[x2+dx][y2+dy] == '#':
-                    new_coin[1] = (x2, y2, t2+1)
-            if new_coin[0] and new_coin[1] and (new_coin[0][0] == new_coin[1][0] and new_coin[0][1] == new_coin[1][1]):
-                continue
-            if new_coin[0] and new_coin[1]:
-                coin.append(new_coin)
-                continue
-            if (new_coin[0] and not new_coin[1]) or (not new_coin[0] and new_coin[1]):
-                flag = 1
-                if new_coin[0]:
-                    res = t2+1
-                else:
-                    res = t1+1
+                ii, jj = x, y
                 break
-        if flag:
-            break
+    if ii != -1:
+        break
+visit = [[[[False]*m for _ in range(n)] for __ in range(m)] for ___ in range(n)]
+res = sol(i, j, ii, jj)
 print(res)
