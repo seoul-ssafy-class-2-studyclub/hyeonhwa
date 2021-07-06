@@ -1,8 +1,8 @@
 n, c = map(int, input().split())
 house = [int(input()) for _ in range(n)]
 house.sort()
-s = house[1]-house[0]
-e = house[-1]-house[0]
+s = 0
+e = house[-1]
 res = 0
 while s <= e:
     mid = (s+e)//2
